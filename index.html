@@ -4,48 +4,42 @@ title: Home
 ---
 {% assign featured_key = "villainess-drinks-tea-alone" %}
 {% assign featured = site.data.novels[featured_key] %}
-{% assign latest = site.chapters | where: "novel", featured_key | sort: "chapter_number" | reverse %}
+{% assign latest_chapters = site.chapters | where: "novel", featured_key | sort: "chapter_number" | reverse | slice: 0, 6 %}
 
-<section class="home-hero">
-  <div class="container home-hero-inner">
-    <div class="hero-copy">
-      <p class="eyebrow">Welcome to {{ site.title }}</p>
-      <h1>A quiet place for translated stories.</h1>
-      <p class="hero-text">Soft translations for quiet nights, focused on one story at a time.</p>
-      <div class="hero-actions">
-        <a class="button-primary" href="{{ '/novels/' | append: featured_key | append: '/' | relative_url }}">Start Reading</a>
-        <a class="button-secondary" href="{{ '/support/' | relative_url }}">Support on Patreon</a>
-      </div>
-    </div>
-
-    <a class="featured-story" href="{{ '/novels/' | append: featured_key | append: '/' | relative_url }}">
-      <img src="{{ featured.cover | relative_url }}" alt="{{ featured.title }} cover">
-      <div>
-        <p class="eyebrow">Currently Translating</p>
-        <h2>{{ featured.title }}</h2>
-        <p>{{ featured.subtitle }}</p>
-      </div>
+<section class="container home-feature">
+  <div class="home-cover-wrap">
+    <a href="{{ '/novels/' | append: featured_key | append: '/' | relative_url }}">
+      <img class="home-cover" src="{{ featured.cover | relative_url }}" alt="{{ featured.title }} cover">
     </a>
+  </div>
+
+  <div class="home-feature-info">
+    <p class="eyebrow">Currently Translating</p>
+    <h1>{{ featured.title }}</h1>
+
+    {% if featured.subtitle %}
+      <p class="home-subtitle">{{ featured.subtitle }}</p>
+    {% endif %}
+
+    <div class="home-actions">
+      <a class="button-primary" href="{{ '/novels/' | append: featured_key | append: '/' | relative_url }}">Start Reading</a>
+      <a class="button-secondary" href="{{ site.data.support.buttons[0].url }}" target="_blank" rel="noopener noreferrer">Support on Patreon</a>
+    </div>
   </div>
 </section>
 
-<section class="container section-block latest-section">
+<section class="container latest-section">
   <div class="section-title-row">
     <h2>Latest Chapters</h2>
     <a href="{{ '/novels/' | append: featured_key | append: '/' | relative_url }}">View all chapters</a>
   </div>
+
   <div class="latest-list">
-    {% for chapter in latest limit:6 %}
+    {% for chapter in latest_chapters %}
       <a class="latest-row" href="{{ chapter.url | relative_url }}">
         <span>{{ chapter.title }}</span>
         <small>Chapter {{ chapter.chapter_number }}</small>
       </a>
     {% endfor %}
   </div>
-</section>
-
-<section class="container personal-note">
-  <p class="eyebrow">A note from the translator</p>
-  <h2>Translated slowly, carefully, and with love for the story.</h2>
-  <p>This placeholder section can become a short personal introduction, update note, or explanation of what kind of novels the site focuses on.</p>
 </section>
