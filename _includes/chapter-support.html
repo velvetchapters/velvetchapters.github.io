@@ -1,0 +1,10 @@
+{% assign support = site.data.support %}
+<section class="chapter-support">
+  <h2>{{ support.heading }}</h2>
+  <p>{{ support.text }}</p>
+  <div class="chapter-support-actions">
+    {% for button in support.buttons %}
+      <a href="{{ button.url }}" target="_blank" rel="noopener noreferrer">{{ button.label }}</a>
+    {% endfor %}
+  </div>
+</section>

@@ -1,0 +1,34 @@
+---
+layout: default
+---
+{% assign novel = site.data.novels[page.novel] %}
+{% assign toc_url = '/novels/' | append: page.novel | append: '/' %}
+
+<article class="container chapter-page">
+  <header class="chapter-header">
+    <a class="back-link" href="{{ toc_url | relative_url }}">← {{ novel.title }}</a>
+    <h1>{{ page.title }}</h1>
+  </header>
+
+  <nav class="chapter-nav" aria-label="Chapter navigation top" data-auto-chapter-nav data-novel="{{ page.novel }}" data-chapter-number="{{ page.chapter_number }}">
+    <a class="disabled" href="#" data-prev aria-disabled="true">Previous</a>
+    <span class="nav-divider">/</span>
+    <a href="{{ toc_url | relative_url }}">TOC</a>
+    <span class="nav-divider">/</span>
+    <a class="disabled" href="#" data-next aria-disabled="true">Next</a>
+  </nav>
+
+  <div class="chapter-content">
+    {{ content }}
+  </div>
+
+  {% include chapter-support.html %}
+
+  <nav class="chapter-nav" aria-label="Chapter navigation bottom" data-auto-chapter-nav data-novel="{{ page.novel }}" data-chapter-number="{{ page.chapter_number }}">
+    <a class="disabled" href="#" data-prev aria-disabled="true">Previous</a>
+    <span class="nav-divider">/</span>
+    <a href="{{ toc_url | relative_url }}">TOC</a>
+    <span class="nav-divider">/</span>
+    <a class="disabled" href="#" data-next aria-disabled="true">Next</a>
+  </nav>
+</article>

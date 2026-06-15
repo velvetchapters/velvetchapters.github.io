@@ -1,0 +1,28 @@
+---
+layout: default
+title: Library
+permalink: /library/
+---
+<section class="container page-heading">
+  <p class="eyebrow">Library</p>
+  <h1>All Novels</h1>
+  <p>A small shelf of current, completed, and future translations.</p>
+</section>
+
+<section class="container library-list">
+  {% for pair in site.data.novels %}
+    {% assign key = pair[0] %}
+    {% assign novel = pair[1] %}
+    <a class="library-card" href="{{ '/novels/' | append: key | append: '/' | relative_url }}">
+      <img src="{{ novel.cover | relative_url }}" alt="{{ novel.title }} cover">
+      <div>
+        <p class="eyebrow">{{ novel.status }}</p>
+        <h2>{{ novel.title }}</h2>
+        <p>{{ novel.subtitle }}</p>
+        <div class="meta-pills small">
+          {% for genre in novel.genres %}<span>{{ genre }}</span>{% endfor %}
+        </div>
+      </div>
+    </a>
+  {% endfor %}
+</section>

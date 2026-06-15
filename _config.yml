@@ -1,0 +1,20 @@
+title: Velvet Chapter
+description: Soft translations for quiet nights
+url: ""
+baseurl: ""
+markdown: kramdown
+
+collections:
+  chapters:
+    output: true
+    permalink: /novels/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "chapters"
+    values:
+      layout: chapter
+
+liquid:
+  error_mode: warn

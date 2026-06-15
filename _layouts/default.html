@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <link rel="stylesheet" href="{{ '/assets/styles.css' | relative_url }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="{{ '/' | relative_url }}">
+        <span class="brand-mark">VC</span>
+        <span><strong>{{ site.title }}</strong><small>{{ site.description }}</small></span>
+      </a>
+      <nav class="top-nav" aria-label="Main navigation">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/library/' | relative_url }}">Library</a>
+        <a class="support-link" href="{{ '/support/' | relative_url }}">Patreon</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <p>© {{ site.time | date: '%Y' }} {{ site.title }}. Translations for quiet readers.</p>
+      <p><a href="{{ '/support/' | relative_url }}">Support on Patreon</a></p>
+    </div>
+  </footer>
+
+  <script src="{{ '/assets/site.js' | relative_url }}"></script>
+</body>
+</html>

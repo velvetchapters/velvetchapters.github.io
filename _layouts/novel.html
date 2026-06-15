@@ -1,0 +1,42 @@
+---
+layout: default
+---
+{% assign novel = site.data.novels[page.novel] %}
+{% assign novel_chapters = site.chapters | where: "novel", page.novel | sort: "chapter_number" %}
+
+<section class="container novel-hero">
+  <img class="novel-cover-large" src="{{ novel.cover | relative_url }}" alt="{{ novel.title }} cover">
+  <div>
+    <p class="eyebrow">Current Translation</p>
+    <h1>{{ novel.title }}</h1>
+    <p class="subtitle">{{ novel.subtitle }}</p>
+    <div class="meta-pills">
+      <span>{{ novel.status }}</span>
+      <span>Translated by {{ novel.translator }}</span>
+      {% for genre in novel.genres %}<span>{{ genre }}</span>{% endfor %}
+    </div>
+    <div class="synopsis">{{ novel.synopsis | markdownify }}</div>
+  </div>
+</section>
+
+<section class="container section-block">
+  <div class="section-title-row">
+    <h2>Chapters</h2>
+    <span>{{ novel_chapters.size }} chapters</span>
+  </div>
+  <div class="chapter-tools">
+    <input id="chapter-search" type="search" placeholder="Search chapters..." aria-label="Search chapters">
+    <select id="chapter-sort" aria-label="Sort chapters">
+      <option value="asc">Oldest first</option>
+      <option value="desc">Newest first</option>
+    </select>
+  </div>
+  <div class="chapter-list" data-chapter-list>
+    {% for chapter in novel_chapters %}
+      <a class="chapter-row" href="{{ chapter.url | relative_url }}" data-title="{{ chapter.title | escape }}" data-number="{{ chapter.chapter_number }}">
+        <span>{{ chapter.title }}</span>
+        <small>Chapter {{ chapter.chapter_number }}</small>
+      </a>
+    {% endfor %}
+  </div>
+</section>
