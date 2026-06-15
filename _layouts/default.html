@@ -14,10 +14,10 @@
         <span class="brand-mark">VC</span>
         <span><strong>{{ site.title }}</strong><small>{{ site.description }}</small></span>
       </a>
-      <nav class="top-nav" aria-label="Main navigation">
+      <nav class="top-nav">
         <a href="{{ '/' | relative_url }}">Home</a>
         <a href="{{ '/library/' | relative_url }}">Library</a>
-        <a class="support-link" href="{{ '/support/' | relative_url }}">Patreon</a>
+        <a class="support-link" href="{{ site.data.support.buttons[0].url }}" target="_blank" rel="noopener noreferrer">Patreon</a>
       </nav>
     </div>
   </header>
@@ -28,8 +28,7 @@
 
   <footer class="site-footer">
     <div class="container footer-grid">
-      <p>© {{ site.time | date: '%Y' }} {{ site.title }}. Translations for quiet readers.</p>
-      <p><a href="{{ '/support/' | relative_url }}">Support on Patreon</a></p>
+    <p>© {{ site.time | date: '%Y' }} {{ site.title }}.</p>
     </div>
   </footer>
 
