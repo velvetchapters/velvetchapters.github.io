@@ -150,7 +150,12 @@ code {
 .button-secondary,
 .support-link {
   background: var(--patreon);
-  color: #fff;
+  color: #ffffff !important;
+}
+
+.button-secondary:visited,
+.support-link:visited {
+  color: #ffffff !important;
 }
 
 .button-secondary:hover,
