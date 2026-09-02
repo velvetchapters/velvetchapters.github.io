@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novel Details - Webnovel Library</title>
+  <style>
+    :root {
+      --bg-main: #121214;
+      --bg-card: #1e1e24;
+      --bg-hover: #2a2a32;
+      --text-main: #e4e4e7;
+      --text-muted: #a1a1aa;
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --patreon: #FF424D;
+      --kofi: #29A8DF;
+      --border: #27272a;
+      --max-width: 1000px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .logo-icon { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a:hover { color: var(--accent); }
+
+    main {
+      max-width: var(--max-width);
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      flex: 1;
+    }
+
+    /* Novel Header Layout */
+    .novel-header {
+      display: flex;
+      gap: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .novel-cover {
+      width: 220px;
+      height: 310px;
+      object-fit: cover;
+      border-radius: 8px;
+      background-color: #2a2a2a;
+      flex-shrink: 0;
+    }
+    .novel-info { flex: 1; min-width: 280px; display: flex; flex-direction: column; }
+    .novel-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.2; }
+    .novel-author { color: var(--text-muted); margin-bottom: 1rem; font-size: 1rem; }
+    .genres { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .genre-tag {
+      background: var(--bg-hover);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+    .synopsis {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #d1d1d6;
+      margin-bottom: 1.5rem;
+      white-space: pre-line;
+    }
+    .action-row {
+      margin-top: auto;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-start {
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+    .btn-start:hover { background: var(--accent-hover); }
+
+    /* Support CTA Box */
+    .support-box {
+      background: linear-gradient(135deg, rgba(255, 66, 77, 0.1) 0%, rgba(41, 168, 223, 0.1) 100%);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .support-box h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .support-box p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-patreon { background: var(--patreon); color: white; padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; }
+    .btn-kofi { background: var(--kofi); color: white; padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; }
+
+    /* Chapter List Header */
+    .toc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .toc-title { font-size: 1.5rem; font-weight: 700; }
+    .toc-search {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    /* Chapter Ranges for 1000s of Chapters */
+    .range-selector {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .range-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    .range-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    /* Chapter Grid / List */
+    .chapter-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.75rem;
+    }
+    .chapter-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 0.85rem 1.1rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+    .chapter-item:hover {
+      background: var(--bg-hover);
+      border-color: var(--accent);
+      transform: translateX(2px);
+    }
+    .ch-title { font-weight: 600; font-size: 0.95rem; }
+    .ch-date { font-size: 0.8rem; color: var(--text-muted); }
+
+    footer {
+      background-color: var(--bg-card);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 4rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo"><span class="logo-icon">📚</span> Webnovel Library</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="novels.html">All Novels</a>
+        <a href="https://patreon.com/yourname" target="_blank" style="color: var(--patreon); font-weight:600;">Patreon</a>
+        <a href="https://ko-fi.com/yourname" target="_blank" style="color: var(--kofi); font-weight:600;">Ko-fi</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div id="novel-details-container">
+      <p style="color: var(--text-muted);">Loading novel details...</p>
+    </div>
+
+    <!-- Patron & Ko-fi CTA -->
+    <div class="support-box">
+      <h3>Support the Author</h3>
+      <p>Enjoying this novel? Read advanced chapters on Patreon or buy a coffee on Ko-fi to support continuous releases!</p>
+      <div class="cta-btns">
+        <a href="https://patreon.com/yourname" target="_blank" class="btn-patreon">Support on Patreon</a>
+        <a href="https://ko-fi.com/yourname" target="_blank" class="btn-kofi">Buy a Ko-fi</a>
+      </div>
+    </div>
+
+    <div class="toc-header">
+      <h2 class="toc-title">Table of Contents</h2>
+      <input type="text" id="ch-search" class="toc-search" placeholder="Search chapters..." oninput="filterChapters()">
+    </div>
+
+    <!-- Dynamic Chunking Ranges for 1000s of Chapters -->
+    <div id="range-selector" class="range-selector"></div>
+
+    <div class="chapter-list" id="chapter-list">
+      <!-- Dynamically filled -->
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; Webnovel Library. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const novelId = urlParams.get('id');
+
+    let allChapters = [];
+    let currentRangeIndex = 0;
+    const CHAPTERS_PER_RANGE = 100;
+
+    async function loadNovel() {
+      if (!novelId) {
+        document.getElementById('novel-details-container').innerHTML = "<p>No novel specified.</p>";
+        return;
+      }
+
+      try {
+        const res = await fetch(`data/${novelId}/meta.json`);
+        if (!res.ok) throw new Error("Metadata not found");
+        const novel = await res.json();
+
+        document.title = `${novel.title} - Webnovel Library`;
+        allChapters = novel.chapters || [];
+
+        // Check last read chapter from LocalStorage
+        const lastRead = localStorage.getItem(`last_read_${novelId}`) || 1;
+
+        document.getElementById('novel-details-container').innerHTML = `
+          <div class="novel-header">
+            <img src="${novel.cover || 'assets/default-cover.svg'}" alt="${novel.title}" class="novel-cover">
+            <div class="novel-info">
+              <h1 class="novel-title">${novel.title}</h1>
+              <div class="novel-author">By <strong>${novel.author || 'Author'}</strong> • ${novel.status || 'Ongoing'}</div>
+              <div class="genres">
+                ${(novel.genres || []).map(g => `<span class="genre-tag">${g}</span>`).join('')}
+              </div>
+              <div class="synopsis">${novel.synopsis}</div>
+              <div class="action-row">
+                <a href="reader.html?novel=${novelId}&ch=${lastRead}" class="btn-start">
+                  ${lastRead > 1 ? `Continue Chapter ${lastRead}` : 'Start Reading Chapter 1'}
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+
+        renderRangeSelectors();
+        renderChapters();
+
+      } catch (e) {
+        document.getElementById('novel-details-container').innerHTML = `<p style="color: var(--text-muted);">Failed to load novel details for "${novelId}".</p>`;
+      }
+    }
+
+    function renderRangeSelectors() {
+      const rangeEl = document.getElementById('range-selector');
+      if (allChapters.length <= CHAPTERS_PER_RANGE) {
+        rangeEl.style.display = 'none';
+        return;
+      }
+
+      const numRanges = Math.ceil(allChapters.length / CHAPTERS_PER_RANGE);
+      let html = '';
+
+      for (let i = 0; i < numRanges; i++) {
+        const start = i * CHAPTERS_PER_RANGE + 1;
+        const end = Math.min((i + 1) * CHAPTERS_PER_RANGE, allChapters.length);
+        html += `<button class="range-btn ${i === 0 ? 'active' : ''}" onclick="selectRange(${i})">Ch. ${start} - ${end}</button>`;
+      }
+
+      rangeEl.innerHTML = html;
+    }
+
+    function selectRange(index) {
+      currentRangeIndex = index;
+      document.querySelectorAll('.range-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === index);
+      });
+      renderChapters();
+    }
+
+    function renderChapters() {
+      const listEl = document.getElementById('chapter-list');
+      const query = document.getElementById('ch-search').value.toLowerCase();
+
+      let visibleChapters = allChapters;
+
+      // Apply range if no active search query
+      if (!query && allChapters.length > CHAPTERS_PER_RANGE) {
+        const start = currentRangeIndex * CHAPTERS_PER_RANGE;
+        visibleChapters = allChapters.slice(start, start + CHAPTERS_PER_RANGE);
+      } else if (query) {
+        visibleChapters = allChapters.filter(ch => 
+          ch.title.toLowerCase().includes(query) || ch.number.toString() === query
+        );
+      }
+
+      if (visibleChapters.length === 0) {
+        listEl.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1;">No chapters found.</p>`;
+        return;
+      }
+
+      listEl.innerHTML = visibleChapters.map(ch => `
+        <a href="reader.html?novel=${novelId}&ch=${ch.number}" class="chapter-item">
+          <span class="ch-title">${ch.title}</span>
+          <span class="ch-date">${ch.date || ''}</span>
+        </a>
+      `).join('');
+    }
+
+    function filterChapters() {
+      renderChapters();
+    }
+
+    loadNovel();
+  </script>
+</body>
+</html>

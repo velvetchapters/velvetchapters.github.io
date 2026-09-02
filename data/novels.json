@@ -1,0 +1,32 @@
+[
+  {
+    "id": "void-walker",
+    "title": "The Void Walker",
+    "author": "Your Pen Name",
+    "cover": "assets/void-walker.svg",
+    "synopsis": "A lonely cultivator discovers an ancient rift between dimensions. With thousand-year-old secrets at his fingertips, he steps onto a path that will reshape the heavens.",
+    "status": "Ongoing",
+    "genres": [
+      "Xianxia",
+      "Fantasy",
+      "Action"
+    ],
+    "latestChapter": 3,
+    "updatedAt": "2026-09-01"
+  },
+  {
+    "id": "dragon-emperor",
+    "title": "Rebirth of the Dragon Emperor",
+    "author": "Your Pen Name",
+    "cover": "assets/dragon-emperor.svg",
+    "synopsis": "Betrayed by his trusted generals at the peak of power, the Dragon Emperor awakes 1,000 years in the past in the body of a disgraced outer disciple.",
+    "status": "Ongoing",
+    "genres": [
+      "Reincarnation",
+      "Martial Arts",
+      "Overpowered"
+    ],
+    "latestChapter": 2,
+    "updatedAt": "2026-08-28"
+  }
+]

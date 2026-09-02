@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webnovel Library - Free Web Novels & Light Novels</title>
+  <style>
+    :root {
+      --bg-main: #121214;
+      --bg-card: #1e1e24;
+      --bg-hover: #2a2a32;
+      --text-main: #e4e4e7;
+      --text-muted: #a1a1aa;
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --patreon: #FF424D;
+      --kofi: #29A8DF;
+      --border: #27272a;
+      --max-width: 1080px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Navigation */
+    header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-icon { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      max-width: var(--max-width);
+      margin: 2rem auto 1rem;
+      padding: 2rem 1rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(99,102,241,0.1) 0%, rgba(18,18,20,0) 100%);
+      border-radius: 12px;
+    }
+    .hero h1 { font-size: 2.2rem; margin-bottom: 0.75rem; font-weight: 800; }
+    .hero p { color: var(--text-muted); max-width: 650px; margin: 0 auto 1.5rem; font-size: 1.05rem; }
+    .support-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-support {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-support:hover { transform: translateY(-2px); opacity: 0.95; }
+    .btn-patreon { background-color: var(--patreon); color: #ffffff; }
+    .btn-kofi { background-color: var(--kofi); color: #ffffff; }
+
+    /* Layout */
+    main {
+      max-width: var(--max-width);
+      width: 100%;
+      margin: 0 auto;
+      padding: 1rem;
+      flex: 1;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin: 2.5rem 0 1.25rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+    .section-title { font-size: 1.4rem; font-weight: 700; }
+    .view-all { font-size: 0.9rem; color: var(--accent); font-weight: 600; }
+    .view-all:hover { text-decoration: underline; }
+
+    /* Grid */
+    .novel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1.5rem;
+    }
+    .novel-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .novel-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .cover-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      background-color: #2a2a2a;
+    }
+    .card-content { padding: 1.2rem; display: flex; flex-direction: column; flex: 1; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.3; }
+    .card-synopsis {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.5;
+    }
+    .card-meta {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .badge {
+      background-color: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* Updates List */
+    .updates-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .update-item {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.1rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s;
+    }
+    .update-item:hover { background-color: var(--bg-hover); }
+    .update-info strong { display: block; color: var(--text-main); font-size: 1.05rem; }
+    .update-info span { font-size: 0.85rem; color: var(--text-muted); }
+    .btn-read {
+      background-color: var(--accent);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: background-color 0.2s;
+    }
+    .btn-read:hover { background-color: var(--accent-hover); }
+
+    /* Footer */
+    footer {
+      background-color: var(--bg-card);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2.5rem 1rem;
+      margin-top: 4rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo"><span class="logo-icon">📚</span> Webnovel Library</a>
+      <nav class="nav-links">
+        <a href="index.html" style="color: var(--accent); font-weight:600;">Home</a>
+        <a href="novels.html">All Novels</a>
+        <a href="https://patreon.com/yourname" target="_blank" style="color: var(--patreon); font-weight:600;">Patreon</a>
+        <a href="https://ko-fi.com/yourname" target="_blank" style="color: var(--kofi); font-weight:600;">Ko-fi</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Read Original Web Novels</h1>
+    <p>Explore thousands of free chapters. Support my work on Patreon or Ko-fi to unlock early access chapters and extra releases!</p>
+    <div class="support-cta">
+      <a href="https://patreon.com/yourname" target="_blank" class="btn-support btn-patreon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.386 0c-4.764 0-8.64 3.876-8.64 8.64 0 4.75 3.876 8.613 8.64 8.613 4.75 0 8.614-3.864 8.614-8.613C24 3.876 20.136 0 15.386 0zM0 24h4.158V0H0v24z"/></svg>
+        Read Ahead on Patreon
+      </a>
+      <a href="https://ko-fi.com/yourname" target="_blank" class="btn-support btn-kofi">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.793-.679.793s-.03 9.462.03 11.974c.06 2.511 1.84 4.085 4.085 4.085h10.763c2.245 0 3.784-1.574 3.844-4.085.06-2.512.03-3.692.03-3.692s3.632.241 4.765-1.932c1.132-2.174.32-2.55.32-2.55zm-5.467 2.174s-.241 1.812-1.812 1.812h-1.208V7.32h1.208c1.571 0 1.812 1.812 1.812 1.812z"/></svg>
+        Buy Me a Ko-fi
+      </a>
+    </div>
+  </section>
+
+  <main>
+    <div class="section-header">
+      <h2 class="section-title">Featured Novels</h2>
+      <a href="novels.html" class="view-all">View All Catalog →</a>
+    </div>
+    <div class="novel-grid" id="novel-grid">
+      <p style="color: var(--text-muted);">Loading novels...</p>
+    </div>
+
+    <div class="section-header">
+      <h2 class="section-title">Latest Releases</h2>
+    </div>
+    <div class="updates-list" id="updates-list">
+      <p style="color: var(--text-muted);">Loading updates...</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Webnovel Library. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    async function loadHomepage() {
+      const grid = document.getElementById('novel-grid');
+      const updates = document.getElementById('updates-list');
+
+      try {
+        const response = await fetch('data/novels.json');
+        if (!response.ok) throw new Error("Failed to load catalog");
+        
+        const novels = await response.json();
+
+        // Render Novel Cards
+        grid.innerHTML = novels.map(novel => `
+          <a href="novel.html?id=${novel.id}" class="novel-card">
+            <img src="${novel.cover || 'assets/default-cover.svg'}" alt="${novel.title}" class="cover-img" loading="lazy">
+            <div class="card-content">
+              <div class="card-title">${novel.title}</div>
+              <div class="card-synopsis">${novel.synopsis}</div>
+              <div class="card-meta">
+                <span class="badge">${novel.status}</span>
+                <span>Ch. 1 - ${novel.latestChapter}</span>
+              </div>
+            </div>
+          </a>
+        `).join('');
+
+        // Render Latest Updates
+        updates.innerHTML = novels.map(novel => `
+          <div class="update-item">
+            <div class="update-info">
+              <strong>${novel.title}</strong>
+              <span>Latest: Chapter ${novel.latestChapter} • Updated ${novel.updatedAt || 'Recently'}</span>
+            </div>
+            <a href="reader.html?novel=${novel.id}&ch=${novel.latestChapter}" class="btn-read">Read Chapter ${novel.latestChapter}</a>
+          </div>
+        `).join('');
+
+      } catch (err) {
+        grid.innerHTML = `<p style="color: var(--text-muted);">Unable to load novel list. Make sure <code>data/novels.json</code> exists.</p>`;
+        updates.innerHTML = '';
+      }
+    }
+
+    loadHomepage();
+  </script>
+</body>
+</html>

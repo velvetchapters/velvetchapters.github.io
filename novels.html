@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Novels - Webnovel Library</title>
+  <style>
+    :root {
+      --bg-main: #121214;
+      --bg-card: #1e1e24;
+      --bg-hover: #2a2a32;
+      --text-main: #e4e4e7;
+      --text-muted: #a1a1aa;
+      --accent: #6366f1;
+      --patreon: #FF424D;
+      --kofi: #29A8DF;
+      --border: #27272a;
+      --max-width: 1080px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .logo-icon { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a:hover { color: var(--accent); }
+
+    main {
+      max-width: var(--max-width);
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      flex: 1;
+    }
+
+    .page-title { font-size: 2rem; margin-bottom: 0.5rem; }
+    .page-subtitle { color: var(--text-muted); margin-bottom: 2rem; }
+
+    /* Filter Controls */
+    .controls-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 250px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .search-input:focus { outline: none; border-color: var(--accent); }
+    .status-filter {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    /* Grid */
+    .novel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .novel-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .novel-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+    .cover-img { width: 100%; height: 290px; object-fit: cover; background-color: #2a2a2a; }
+    .card-content { padding: 1.2rem; display: flex; flex-direction: column; flex: 1; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .card-synopsis {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 1rem; }
+    .tag { font-size: 0.75rem; background: var(--bg-hover); padding: 2px 6px; border-radius: 4px; color: var(--text-muted); }
+    .card-meta {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .badge {
+      background-color: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    footer {
+      background-color: var(--bg-card);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 4rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo"><span class="logo-icon">📚</span> Webnovel Library</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="novels.html" style="color: var(--accent); font-weight:600;">All Novels</a>
+        <a href="https://patreon.com/yourname" target="_blank" style="color: var(--patreon); font-weight:600;">Patreon</a>
+        <a href="https://ko-fi.com/yourname" target="_blank" style="color: var(--kofi); font-weight:600;">Ko-fi</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="page-title">Novel Catalog</h1>
+    <p class="page-subtitle">Browse all webnovels in our collection.</p>
+
+    <div class="controls-bar">
+      <input type="text" id="search-input" class="search-input" placeholder="Search by title, genre, or keyword..." oninput="filterNovels()">
+      <select id="status-filter" class="status-filter" onchange="filterNovels()">
+        <option value="ALL">All Statuses</option>
+        <option value="Ongoing">Ongoing</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+
+    <div class="novel-grid" id="novel-grid">
+      <p style="color: var(--text-muted);">Loading novels...</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; Webnovel Library. All rights reserved.</p>
+  </footer>
+
+  <script>
+    let allNovels = [];
+
+    async function fetchNovels() {
+      try {
+        const res = await fetch('data/novels.json');
+        allNovels = await res.json();
+        renderNovels(allNovels);
+      } catch (e) {
+        document.getElementById('novel-grid').innerHTML = `<p style="color: var(--text-muted);">Failed to load novels catalog.</p>`;
+      }
+    }
+
+    function renderNovels(novels) {
+      const grid = document.getElementById('novel-grid');
+      if (novels.length === 0) {
+        grid.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1;">No novels found matching your search.</p>`;
+        return;
+      }
+
+      grid.innerHTML = novels.map(n => `
+        <a href="novel.html?id=${n.id}" class="novel-card">
+          <img src="${n.cover || 'assets/default-cover.svg'}" alt="${n.title}" class="cover-img" loading="lazy">
+          <div class="card-content">
+            <div class="card-title">${n.title}</div>
+            <div class="card-synopsis">${n.synopsis}</div>
+            <div class="card-tags">
+              ${(n.genres || []).map(g => `<span class="tag">${g}</span>`).join('')}
+            </div>
+            <div class="card-meta">
+              <span class="badge">${n.status}</span>
+              <span>Ch. 1 - ${n.latestChapter}</span>
+            </div>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    function filterNovels() {
+      const query = document.getElementById('search-input').value.toLowerCase();
+      const status = document.getElementById('status-filter').value;
+
+      const filtered = allNovels.filter(n => {
+        const matchesQuery = n.title.toLowerCase().includes(query) || 
+                             n.synopsis.toLowerCase().includes(query) ||
+                             (n.genres || []).some(g => g.toLowerCase().includes(query));
+        const matchesStatus = (status === 'ALL') || (n.status === status);
+        return matchesQuery && matchesStatus;
+      });
+
+      renderNovels(filtered);
+    }
+
+    fetchNovels();
+  </script>
+</body>
+</html>
